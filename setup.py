@@ -21,12 +21,11 @@ import os
 import platform
 import sys
 
-from distutils.core import setup
+from setuptools import setup
 
 sys.path.insert(1, os.path.abspath('./src'))
 
 import wixpy
-import dependencies
 
 IS_PY2 = sys.version_info.major < 3
 IS_MSW = os.name == 'nt'
@@ -45,6 +44,7 @@ setup(
     maintainer=wixpy.MAINTAINER,
     maintainer_email=wixpy.MAINTAINER_EMAIL,
     license=wixpy.LICENSE,
+    install_requires=['distro'],
     url=wixpy.URL,
     download_url=wixpy.DOWNLOAD_URL,
     long_description=wixpy.LONG_DESCRIPTION,
@@ -53,6 +53,8 @@ setup(
     package_dir={'wixpy': 'src/wixpy'},
     scripts=scripts,
 )
+
+import dependencies
 
 if 'install' in sys.argv and not IS_MSW:
     dependencies.install()
