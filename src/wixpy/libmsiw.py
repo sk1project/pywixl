@@ -19,6 +19,7 @@
 
 import os
 import _msi
+import sys
 
 
 class SummaryInfo(object):
@@ -79,6 +80,11 @@ class Table(object):
         db_view = db.OpenView('SELECT * FROM `%s`' % self.name)
         count = db_view.GetColumnInfo(_msi.MSICOLINFO_NAMES).GetFieldCount()
         msirec = _msi.CreateRecord(count)
+        
+        if sys.version_info > (3,) :
+            long = int
+            basestring = str
+        
         for record in self.records:
             for i in range(count):
                 field = record[i]
