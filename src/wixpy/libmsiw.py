@@ -21,6 +21,18 @@ import os
 import _msi
 
 
+# Backwards compatibility for Python 2
+try:
+    long
+except NameError:
+    long = int
+
+try:
+    basestring
+except NameError:
+    basestring = (str,)
+
+
 class SummaryInfo(object):
     title = None
     author = None
