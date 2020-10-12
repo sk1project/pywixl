@@ -396,8 +396,12 @@ class WixPfDir(WixElement):
     is_dir = True
 
     def __init__(self, data):
-        pid = 'ProgramFiles64Folder' if data.get('Win64') == 'yes' \
+        pid = data.get("InstallDir") or (
+            'ProgramFiles64Folder'
+            if data.get('Win64') == 'yes'
             else 'ProgramFilesFolder'
+        )
+
         super(WixPfDir, self).__init__(Id=pid, Name='PFiles')
         self.add(WixInstallDir(data))
 
